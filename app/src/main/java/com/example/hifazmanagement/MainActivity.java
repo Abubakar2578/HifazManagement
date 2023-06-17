@@ -39,6 +39,25 @@ public class MainActivity extends AppCompatActivity {
         date = dateFormat.format(calendar.getTime());
         textView.setText(date);
 
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this , MainActivity4.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this , MainActivity2.class);
+                startActivity(intent);
+            }
+        });
+
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,6 +20,17 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String COLUMN_AGE = "age";
     private static final String COLUMN_CLAS = "class";
 
+    private static final String TABLE_NAME_RECORDS = "records";
+
+    private static final String COLUMN_IDD = "id";
+    private static final String COLUMN_DATE = "date";
+    private static final String COLUMN_SURAT = "surat";
+    private static final String COLUMN_START = "start";
+    private static final String COLUMN_END = "end";
+    private static final String COLUMN_SABKI = "sabki";
+    private static final String COLUMN_MANZIL = "manzil";
+
+
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -34,7 +45,18 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_CLAS + " TEXT"
                 + ")";
         db.execSQL(sql);
-        String sql1 = "CREATE TABLE IF NOT EXISTS" ;
+
+        String sql2 = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_RECORDS + "("
+                + COLUMN_IDD + " INTEGER,"
+                + COLUMN_DATE + " TEXT,"
+                + COLUMN_SURAT + " INTEGER,"
+                + COLUMN_START + " INTEGER,"
+                + COLUMN_END + " INTEGER,"
+                + COLUMN_SABKI + " INTEGER,"
+                + COLUMN_MANZIL + " INTEGER,"
+                + ")";
+        db.execSQL(sql2);
+
 
     }
 
@@ -97,6 +119,55 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
+    public void insertRecords(Records records) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-    
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_IDD, records.getId());
+        values.put(COLUMN_DATE, records.getDate());
+        values.put(COLUMN_SURAT, records.getSurat());
+        values.put(COLUMN_START, records.getStart());
+        values.put(COLUMN_END, records.getEnd());
+        values.put(COLUMN_SABKI, records.getSabki());
+        values.put(COLUMN_MANZIL, records.getManzil());
+
+        db.insert(TABLE_NAME_RECORDS, null, values);
+        db.close();
+    }
+
+
+
+    public List<Records> selectAllRecords() {
+        List<Records> records = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+
+
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(COLUMN_IDD));
+                @SuppressLint("Range") String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+                @SuppressLint("Range") int surat = cursor.getInt(cursor.getColumnIndex(COLUMN_SURAT));
+                @SuppressLint("Range") int start = cursor.getInt(cursor.getColumnIndex(COLUMN_START));
+                @SuppressLint("Range") int end = cursor.getInt(cursor.getColumnIndex(COLUMN_END));
+                @SuppressLint("Range") int sabki = cursor.getInt(cursor.getColumnIndex(COLUMN_SABKI));
+                @SuppressLint("Range") int manzil = cursor.getInt(cursor.getColumnIndex(COLUMN_MANZIL));
+                records.add(new Records(id , date , surat , start , end , sabki , manzil));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return records;
+    }
+
+
+
+
+
 }
