@@ -53,7 +53,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_START + " INTEGER,"
                 + COLUMN_END + " INTEGER,"
                 + COLUMN_SABKI + " INTEGER,"
-                + COLUMN_MANZIL + " INTEGER,"
+                + COLUMN_MANZIL + " INTEGER"
                 + ")";
         db.execSQL(sql2);
 
@@ -140,7 +140,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public List<Records> selectAllRecords() {
         List<Records> records = new ArrayList<>();
 
-        String sql = "SELECT * FROM " + TABLE_NAME;
+        String sql = "SELECT * FROM " + TABLE_NAME_RECORDS;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
