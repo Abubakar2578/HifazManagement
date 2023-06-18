@@ -26,7 +26,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DATE = "date";
     private static final String COLUMN_SURAT = "surat";
     private static final String COLUMN_START = "start";
-    private static final String COLUMN_END = "end";
+    private static final String COLUMN_END = "endd";
     private static final String COLUMN_SABKI = "sabki";
     private static final String COLUMN_MANZIL = "manzil";
 
@@ -47,13 +47,14 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
 
         String sql2 = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_RECORDS + "("
-                + COLUMN_IDD + " INTEGER,"
+                + COLUMN_ID + " INTEGER,"
                 + COLUMN_DATE + " TEXT,"
                 + COLUMN_SURAT + " INTEGER,"
                 + COLUMN_START + " INTEGER,"
                 + COLUMN_END + " INTEGER,"
                 + COLUMN_SABKI + " INTEGER,"
-                + COLUMN_MANZIL + " INTEGER"
+                + COLUMN_MANZIL + " INTEGER,"
+                + "FOREIGN KEY(" + COLUMN_IDD + ") REFERENCES " + TABLE_NAME + "(" + COLUMN_ID + ")"
                 + ")";
         db.execSQL(sql2);
 
