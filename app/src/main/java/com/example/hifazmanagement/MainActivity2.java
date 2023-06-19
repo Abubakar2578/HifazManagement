@@ -38,7 +38,9 @@ public class MainActivity2 extends AppCompatActivity {
                     return;
                 }
 
-                Student student = new Student(name, age, clas);
+                int id = db.getLastID() + 1;
+
+                Student student = new Student(id , name, age, clas);
                 db.insertStudent(student);
 
                 textname.setText("");

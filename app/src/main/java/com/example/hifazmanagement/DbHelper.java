@@ -39,7 +39,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
-                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_ID + " INTEGER,"
                 + COLUMN_NAME + " TEXT,"
                 + COLUMN_AGE + " TEXT,"
                 + COLUMN_CLAS + " TEXT"
@@ -83,6 +83,15 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
+    public int getLastID()
+    {
+        SQLiteDatabase database=this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT MAX("+COLUMN_ID+") FROM "+TABLE_NAME, null);
+        int maxid = (cursor.moveToFirst() ? cursor.getInt(0) : 0);
+        return maxid;
+    }
+
+
     public List<Student> selectAllStudents() {
         List<Student> students = new ArrayList<>();
 
@@ -109,7 +118,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
                 @SuppressLint("Range")  String age = cursor.getString(cursor.getColumnIndex(COLUMN_AGE));
                 @SuppressLint("Range") String clas = cursor.getString(cursor.getColumnIndex(COLUMN_CLAS));
-                students.add(new Student(name, age, clas));
+                students.add(new Student(id ,name, age, clas));
             } while (cursor.moveToNext());
         }
 
