@@ -2,6 +2,7 @@ package com.example.hifazmanagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,11 @@ public class MainActivity4 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent intent = getIntent();
+
+                //int  id = Integer.parseInt(intent.getStringExtra("id"));
+                int id = intent.getIntExtra("id" , 0);
+
                 int suratno = Integer.parseInt(surat.getText().toString());
                 int startayat = Integer.parseInt(start.getText().toString());
                 int endayat = Integer.parseInt(end.getText().toString());
@@ -61,7 +67,7 @@ public class MainActivity4 extends AppCompatActivity {
                 dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 dates = dateFormat.format(calendar.getTime());
 
-                Records records = new Records(1 , dates ,suratno , startayat, endayat , sabkino , manzilno);
+                Records records = new Records(id , dates ,suratno , startayat, endayat , sabkino , manzilno);
                 db.insertRecords(records);
 
                 surat.setText("");

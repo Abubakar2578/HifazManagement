@@ -38,9 +38,10 @@ public class MainActivity2 extends AppCompatActivity {
                     return;
                 }
 
-                int id = db.getLastID() + 1;
+                //int id = db.getLastID() + 1;
+                int id = 1;
 
-                Student student = new Student(id , name, age, clas);
+                Student student = new Student(id  , name, age, clas);
                 db.insertStudent(student);
 
                 textname.setText("");
